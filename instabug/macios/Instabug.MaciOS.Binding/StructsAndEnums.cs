@@ -1,0 +1,4 @@
+namespace Instabug.MaciOS.Binding
+{
+
+}

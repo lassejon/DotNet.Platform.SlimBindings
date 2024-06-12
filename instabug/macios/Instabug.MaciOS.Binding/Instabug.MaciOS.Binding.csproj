@@ -4,10 +4,26 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
     <IsBindingProject>true</IsBindingProject>
+    <NoBindingEmbedding>true</NoBindingEmbedding>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui.BindingExtensions" Version="$(BindingExtPackageVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+    <XcodeProjectReference Include="../native/InstabugWrapper.xcodeproj">
+      <SchemeName>InstabugWrapper</SchemeName>
+      <SharpieNamespace>InstabugWrapper</SharpieNamespace>
+      <SharpieBind>true</SharpieBind>
+      <!-- Metadata applicable to @(NativeReference) will be used if set -->
+      <Kind>Framework</Kind>
+      <SmartLink>true</SmartLink>
+    </XcodeProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
 </Project>

@@ -46,20 +46,20 @@ public class InstabugSdk {
     }
 }
 
-public class IBGCrashReportingSdk {
-    public var enabled: Bool = false {
-        didSet {
-            
-        }
-    }
-}
-
-public class IBGBugReportingSdk {
-    public var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
-        didSet {
-            
-        }
-    }
-    
-    public var floatingButtonTopOffset: Int = 40;
-}
+//public class IBGCrashReportingSdk {
+//    public var enabled: Bool = false {
+//        didSet {
+//            
+//        }
+//    }
+//}
+//
+//public class IBGBugReportingSdk {
+//    public var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
+//        didSet {
+//            
+//        }
+//    }
+//    
+//    public var floatingButtonTopOffset: Int = 40;
+//}
