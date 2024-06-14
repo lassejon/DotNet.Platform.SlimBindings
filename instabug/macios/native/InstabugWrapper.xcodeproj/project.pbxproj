@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F36D6DB22C19BBE200911D00 /* Instabug in Frameworks */ = {isa = PBXBuildFile; productRef = F36D6DB12C19BBE200911D00 /* Instabug */; };
+		F3466E582C1B5DFD009C6BA6 /* Instabug in Frameworks */ = {isa = PBXBuildFile; productRef = F3466E572C1B5DFD009C6BA6 /* Instabug */; };
 		F36D6DB42C19BC0A00911D00 /* InstabugWrapperSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36D6DB32C19BC0A00911D00 /* InstabugWrapperSdk.swift */; };
+		F3B7FDF72C1C466F005B5BF5 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B7FDF62C1C466F005B5BF5 /* Enums.swift */; };
 		F3FF828E2C19BAF400132959 /* InstabugWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = F3FF828D2C19BAF400132959 /* InstabugWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F36D6DB32C19BC0A00911D00 /* InstabugWrapperSdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstabugWrapperSdk.swift; sourceTree = "<group>"; };
+		F3B7FDF62C1C466F005B5BF5 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		F3FF828A2C19BAF400132959 /* InstabugWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InstabugWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FF828D2C19BAF400132959 /* InstabugWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstabugWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -23,18 +25,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36D6DB22C19BBE200911D00 /* Instabug in Frameworks */,
+				F3466E582C1B5DFD009C6BA6 /* Instabug in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F3466E532C1B2BC7009C6BA6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3B7FDF52C1C465B005B5BF5 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				F3B7FDF62C1C466F005B5BF5 /* Enums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		F3FF82802C19BAF400132959 = {
 			isa = PBXGroup;
 			children = (
 				F3FF828C2C19BAF400132959 /* InstabugWrapper */,
 				F3FF828B2C19BAF400132959 /* Products */,
+				F3466E532C1B2BC7009C6BA6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,6 +67,7 @@
 		F3FF828C2C19BAF400132959 /* InstabugWrapper */ = {
 			isa = PBXGroup;
 			children = (
+				F3B7FDF52C1C465B005B5BF5 /* Enums */,
 				F3FF828D2C19BAF400132959 /* InstabugWrapper.h */,
 				F36D6DB32C19BC0A00911D00 /* InstabugWrapperSdk.swift */,
 			);
@@ -84,7 +103,7 @@
 			);
 			name = InstabugWrapper;
 			packageProductDependencies = (
-				F36D6DB12C19BBE200911D00 /* Instabug */,
+				F3466E572C1B5DFD009C6BA6 /* Instabug */,
 			);
 			productName = InstabugWrapper;
 			productReference = F3FF828A2C19BAF400132959 /* InstabugWrapper.framework */;
@@ -115,7 +134,7 @@
 			);
 			mainGroup = F3FF82802C19BAF400132959;
 			packageReferences = (
-				F36D6DB02C19BBE200911D00 /* XCRemoteSwiftPackageReference "Instabug-SP" */,
+				F3466E562C1B5DFD009C6BA6 /* XCRemoteSwiftPackageReference "Instabug-SP" */,
 			);
 			productRefGroup = F3FF828B2C19BAF400132959 /* Products */;
 			projectDirPath = "";
@@ -141,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B7FDF72C1C466F005B5BF5 /* Enums.swift in Sources */,
 				F36D6DB42C19BC0A00911D00 /* InstabugWrapperSdk.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +207,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -289,6 +310,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,6 +346,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,20 +389,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F36D6DB02C19BBE200911D00 /* XCRemoteSwiftPackageReference "Instabug-SP" */ = {
+		F3466E562C1B5DFD009C6BA6 /* XCRemoteSwiftPackageReference "Instabug-SP" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Instabug/Instabug-SP.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.1.0;
+				minimumVersion = 13.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F36D6DB12C19BBE200911D00 /* Instabug */ = {
+		F3466E572C1B5DFD009C6BA6 /* Instabug */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F36D6DB02C19BBE200911D00 /* XCRemoteSwiftPackageReference "Instabug-SP" */;
+			package = F3466E562C1B5DFD009C6BA6 /* XCRemoteSwiftPackageReference "Instabug-SP" */;
 			productName = Instabug;
 		};
 /* End XCSwiftPackageProductDependency section */

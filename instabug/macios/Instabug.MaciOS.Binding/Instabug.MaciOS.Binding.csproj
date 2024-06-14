@@ -13,17 +13,15 @@
 
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+
     <XcodeProjectReference Include="../native/InstabugWrapper.xcodeproj">
       <SchemeName>InstabugWrapper</SchemeName>
-      <SharpieNamespace>InstabugWrapper</SharpieNamespace>
+      <SharpieNamespace>Instabug.MaciOS.Binding</SharpieNamespace>
       <SharpieBind>true</SharpieBind>
       <!-- Metadata applicable to @(NativeReference) will be used if set -->
       <Kind>Framework</Kind>
       <SmartLink>true</SmartLink>
     </XcodeProjectReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
 </Project>

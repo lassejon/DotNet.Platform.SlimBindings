@@ -8,58 +8,101 @@
 import Foundation
 import Instabug
 
-//struct EventArgs {
-//    
-//}
-
-
-
-public class InstabugSdk {
-//    typealias EventHandler = (AnyObject, EventArgs) -> Void
-    public var WillInvokeHandler: (() -> Void)?;
-    public var DidDismissHandler: (() -> Void)?;
-    
-    public var trackUserSteps: Bool = true {
+@objc(Instabug)
+public class InstabugSdk : NSObject {
+    @objc static public var trackUserSteps: Bool = false {
         didSet {
             Instabug.trackUserSteps = trackUserSteps;
         }
     }
     
-    public var shouldCaptureViewHierarchy: Bool = true {
+    @objc static public var reproStepsMode: IBGUserStepsModeWrapper = IBGUserStepsModeWrapper.disable {
         didSet {
-            
+            Instabug.setReproStepsFor(IBGIssueType.all, with: reproStepsMode.ibgUserStepsMode);
         }
     }
     
-    public var reproStepsMode: IBGUserStepsMode = IBGUserStepsMode.disable {
+    @objc static public var shouldCaptureViewHierarch: Bool = false {
         didSet {
-//            Instabug.setReproStepsFor(<#T##issueType: IBGIssueType##IBGIssueType#>, with: reproStepsMode);
+            BugReporting.shouldCaptureViewHierarchy = shouldCaptureViewHierarch;
         }
     }
     
-    public func startWithToken(token: String, invocationEvents: IBGInvocationEvent) {
-        Instabug.start(withToken: token, invocationEvents: invocationEvents);
+    @objc static public func setColorTheme(ibgColorTheme: IBGColorThemeWrapper) {
+        Instabug.setColorTheme(ibgColorTheme.ibgColorTheme);
     }
     
-    public func SetLocale(locale: IBGLocale) {
-        Instabug.setLocale(locale);
+    @objc static public func start(token: String, invocationEvents: IBGInvocationEventWrapper) -> Void {
+        Instabug.start(withToken: token, invocationEvents: invocationEvents.ibgInvocationEvent);
+    }
+    
+    @objc static public func setLocale(locale: IBGLocaleWrapper) -> Void {
+        Instabug.setLocale(locale.ibgLocale);
+    }
+    
+    @objc static public func show() -> Void {
+        Instabug.show();
     }
 }
 
-//public class IBGCrashReportingSdk {
-//    public var enabled: Bool = false {
-//        didSet {
-//            
-//        }
-//    }
-//}
-//
-//public class IBGBugReportingSdk {
-//    public var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
-//        didSet {
-//            
-//        }
-//    }
-//    
-//    public var floatingButtonTopOffset: Int = 40;
-//}
+@objc(IBGCrashReporting)
+public class IBGCrashReportingWrapper : NSObject {
+    @objc public var enabled: Bool = false {
+        didSet {
+            CrashReporting.enabled = enabled;
+        }
+    }
+}
+
+@objc(IBGBugReporting)
+public class IBGBugReportingWrapper : NSObject {
+    @objc public var willInvokeHandler: (() -> Void) = {} {
+        didSet {
+            BugReporting.willInvokeHandler = willInvokeHandler;
+        }
+    }
+    
+    @objc public var didDismissHandler: ((IBGDismissTypeWrapper, IBGReportTypeWrapper) -> Void) = {_,_ in } {
+        didSet {
+            BugReporting.didDismissHandler = { dismissType, reportType in
+                
+                // Convert IBGDismissType and IBGReportType to their corresponding wrappers
+                let dismissTypeWrapper = IBGDismissTypeWrapper(rawValue: dismissType.rawValue)!
+                let reportTypeWrapper = IBGReportTypeWrapper(rawValue: reportType.rawValue)!
+                
+                // Call the didDismissHandler with the wrapper types
+                self.didDismissHandler(dismissTypeWrapper, reportTypeWrapper)
+            }
+        }
+    }
+    
+    @objc public var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
+        didSet {
+            BugReporting.floatingButtonEdge = floatingButtonEdge;
+        }
+    }
+    
+    @objc public var shakingThresholdForiPhone: Float = 1 {
+        didSet {
+            BugReporting.shakingThresholdForiPhone = CGFloat(shakingThresholdForiPhone);
+        }
+    }
+    
+    @objc public var shakingThresholdForiPad: Float = 3 {
+        didSet {
+            BugReporting.shakingThresholdForiPad = CGFloat(shakingThresholdForiPad);
+        }
+    }
+    
+    @objc public var floatingButtonTopOffset: Float = 0 {
+        didSet {
+            BugReporting.floatingButtonTopOffset = CGFloat(floatingButtonTopOffset);
+        }
+    }
+    
+    @objc public var enabledAttachmentTypes: IBGAttachmentTypeWrapper = IBGAttachmentTypeWrapper.screenShot {
+        didSet {
+            BugReporting.enabledAttachmentTypes = enabledAttachmentTypes.ibgAttachmentType;
+        }
+    }
+}
