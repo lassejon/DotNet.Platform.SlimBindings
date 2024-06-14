@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Facebook</RootNamespace>
+    <AndroidGenerateResourceDesigner>false</AndroidGenerateResourceDesigner>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui.BindingExtensions" Version="$(BindingExtPackageVersion)" />
+  </ItemGroup>
+
+  <!-- Metadata applicable to @(AndroidLibrary) will be used if set -->
+  <ItemGroup>
+    <GradleProjectReference Include="../native" >
+      <ModuleName>instabug</ModuleName>
+      <Bind>true</Bind>
+      <Pack>true</Pack>
+    </GradleProjectReference>
+  </ItemGroup>
+
+</Project>
