@@ -8,8 +8,8 @@
 import Foundation
 import Instabug
 
-@objc(Instabug)
-public class InstabugSdk : NSObject {
+@objc(InstabugSdk)
+public class InstabugWrapperSdk : NSObject {
     @objc static public var trackUserSteps: Bool = false {
         didSet {
             Instabug.trackUserSteps = trackUserSteps;
@@ -45,24 +45,24 @@ public class InstabugSdk : NSObject {
     }
 }
 
-@objc(IBGCrashReporting)
+@objc(CrashReporting)
 public class IBGCrashReportingWrapper : NSObject {
-    @objc public var enabled: Bool = false {
+    @objc public static var enabled: Bool = false {
         didSet {
             CrashReporting.enabled = enabled;
         }
     }
 }
 
-@objc(IBGBugReporting)
+@objc(BugReporting)
 public class IBGBugReportingWrapper : NSObject {
-    @objc public var willInvokeHandler: (() -> Void) = {} {
+    @objc public static var willInvokeHandler: (() -> Void) = {} {
         didSet {
             BugReporting.willInvokeHandler = willInvokeHandler;
         }
     }
     
-    @objc public var didDismissHandler: ((IBGDismissTypeWrapper, IBGReportTypeWrapper) -> Void) = {_,_ in } {
+    @objc public static var didDismissHandler: ((IBGDismissTypeWrapper, IBGReportTypeWrapper) -> Void) = {_,_ in } {
         didSet {
             BugReporting.didDismissHandler = { dismissType, reportType in
                 
@@ -76,31 +76,31 @@ public class IBGBugReportingWrapper : NSObject {
         }
     }
     
-    @objc public var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
+    @objc public static var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
         didSet {
             BugReporting.floatingButtonEdge = floatingButtonEdge;
         }
     }
     
-    @objc public var shakingThresholdForiPhone: Float = 1 {
+    @objc public static var shakingThresholdForiPhone: Float = 1 {
         didSet {
             BugReporting.shakingThresholdForiPhone = CGFloat(shakingThresholdForiPhone);
         }
     }
     
-    @objc public var shakingThresholdForiPad: Float = 3 {
+    @objc public static var shakingThresholdForiPad: Float = 3 {
         didSet {
             BugReporting.shakingThresholdForiPad = CGFloat(shakingThresholdForiPad);
         }
     }
     
-    @objc public var floatingButtonTopOffset: Float = 0 {
+    @objc public static var floatingButtonTopOffset: Float = 0 {
         didSet {
             BugReporting.floatingButtonTopOffset = CGFloat(floatingButtonTopOffset);
         }
     }
     
-    @objc public var enabledAttachmentTypes: IBGAttachmentTypeWrapper = IBGAttachmentTypeWrapper.screenShot {
+    @objc public static var enabledAttachmentTypes: IBGAttachmentTypeWrapper = IBGAttachmentTypeWrapper.screenShot {
         didSet {
             BugReporting.enabledAttachmentTypes = enabledAttachmentTypes.ibgAttachmentType;
         }
