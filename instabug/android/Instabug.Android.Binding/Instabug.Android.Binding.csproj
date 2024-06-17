@@ -15,7 +15,7 @@
   <!-- Metadata applicable to @(AndroidLibrary) will be used if set -->
   <ItemGroup>
     <GradleProjectReference Include="../native" >
-      <ModuleName>instabug</ModuleName>
+      <ModuleName>instabugwrapper</ModuleName>
       <Bind>true</Bind>
       <Pack>true</Pack>
     </GradleProjectReference>

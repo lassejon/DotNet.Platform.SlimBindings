@@ -20,41 +20,58 @@ class InstabugSdk {
             Instabug.show();
         }
 
-        fun setTrackingUserStepsState(state: Feature.State) {
+        fun setTrackingUserStepsState(state: FeatureWrapper.State) {
             Instabug.setTrackingUserStepsState(state.toNative())
         }
 
-        fun setViewHierarchyState(state: Feature.State) {
+        fun setViewHierarchyState(state: FeatureWrapper.State) {
             builder?.builder?.setViewHierarchyState(state.toNative())
         }
 
-        fun setReproStepsState(state: Feature.State) {
+        fun setReproStepsState(state: FeatureWrapper.State) {
             Instabug.setTrackingUserStepsState(state.toNative())
         }
 
-        fun setColorTheme(colorTheme: com.example.instabugwrapper.InstabugColorTheme) {
+        fun setColorTheme(colorTheme: InstabugColorThemeWrapper) {
             Instabug.setColorTheme(colorTheme.toNative())
         }
 
-        fun setWelcomeMessageState(welcomeMessage: com.example.instabugwrapper.WelcomeMessage.State) {
+        fun setWelcomeMessageState(welcomeMessage: WelcomeMessageWrapper.State) {
             Instabug.setWelcomeMessageState(welcomeMessage.toNative())
         }
 
         fun setLocale(locale: IBGLocale) {
             Instabug.setLocale(locale.toNative());
         }
+
+        class Builder(context: Application, instabugToken: String) {
+            internal var builder: Instabug.Builder? = null
+
+            init {
+                builder = Instabug.Builder(context, instabugToken)
+                InstabugSdk.builder = this
+            }
+
+            fun setInvocationEvents(event: InstabugInvocationEvent): Builder {
+                builder = builder?.setInvocationEvents(event)
+
+                return this
+            }
+
+            fun build() {
+                builder?.build()
+            }
+        }
     }
 }
 
 class BugReporting {
     companion object {
-        var invocationEvents: ArrayList<com.example.instabugwrapper.InstabugInvocationEvent>? = ArrayList()
-
-        fun show(reportType: ReportType) {
+        fun show(reportType: ReportTypeWrapper) {
             BugReporting.show(reportType.toNative().ordinal)
         }
 
-        fun setFloatingButtonEdge(instabugFloatingButtonEdge: com.example.instabugwrapper.InstabugFloatingButtonEdge) {
+        fun setFloatingButtonEdge(instabugFloatingButtonEdge: InstabugFloatingButtonEdgeWrapper) {
             BugReporting.setFloatingButtonEdge(instabugFloatingButtonEdge.toNative())
         }
 
@@ -155,24 +172,7 @@ enum class IBGLocale {
     }
 }
 
-class Builder(context: Application, instabugToken: String) {
-    internal var builder: Instabug.Builder? = null
-
-    init {
-        builder = Instabug.Builder(context, instabugToken)
-    }
-
-    fun setInvocationEvents(event: InstabugInvocationEvent): Builder {
-        builder = builder?.setInvocationEvents(event)
-
-        return this
-    }
-
-    fun build() {
-        builder?.build()
-    }
-}
-enum class DismissType {
+enum class DismissTypeWrapper {
     SUBMIT,
     CANCEL,
     ADD_ATTACHMENT;
