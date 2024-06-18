@@ -151,7 +151,7 @@ enum class DismissType {
     CANCEL,
     ADD_ATTACHMENT;
 
-    fun toNative(): OnSdkDismissCallback.DismissType {
+    internal fun toNative(): OnSdkDismissCallback.DismissType {
         return when (this) {
             SUBMIT -> OnSdkDismissCallback.DismissType.SUBMIT
             CANCEL -> OnSdkDismissCallback.DismissType.CANCEL

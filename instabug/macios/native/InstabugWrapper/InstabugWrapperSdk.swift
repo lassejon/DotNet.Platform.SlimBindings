@@ -16,6 +16,12 @@ public class InstabugWrapperSdk : NSObject {
         }
     }
     
+    @objc static public var welcomeMessageMode: IBGWelcomeMessageModeWrapper = IBGWelcomeMessageModeWrapper.disabled {
+        didSet {
+            Instabug.welcomeMessageMode = welcomeMessageMode.ibgWelcomeMessageMode;
+        }
+    }
+    
     @objc static public var reproStepsMode: IBGUserStepsModeWrapper = IBGUserStepsModeWrapper.disable {
         didSet {
             Instabug.setReproStepsFor(IBGIssueType.all, with: reproStepsMode.ibgUserStepsMode);
@@ -36,7 +42,8 @@ public class InstabugWrapperSdk : NSObject {
         Instabug.start(withToken: token, invocationEvents: invocationEvents.ibgInvocationEvent);
     }
     
-    @objc static public func setLocale(locale: IBGLocaleWrapper) -> Void {
+    @objc
+    static public func setLocale(locale: IBGLocaleWrapper) -> Void {
         Instabug.setLocale(locale.ibgLocale);
     }
     
@@ -76,6 +83,12 @@ public class IBGBugReportingWrapper : NSObject {
         }
     }
     
+    @objc public static var invocationEvents: IBGInvocationEventWrapper = IBGInvocationEventWrapper.none {
+        didSet {
+            BugReporting.invocationEvents = invocationEvents.ibgInvocationEvent;
+        }
+    }
+    
     @objc public static var floatingButtonEdge: CoreGraphics.CGRectEdge = CoreGraphics.CGRectEdge.maxXEdge {
         didSet {
             BugReporting.floatingButtonEdge = floatingButtonEdge;
@@ -104,5 +117,20 @@ public class IBGBugReportingWrapper : NSObject {
         didSet {
             BugReporting.enabledAttachmentTypes = enabledAttachmentTypes.ibgAttachmentType;
         }
+    }
+    
+    @objc static public func showWithReportType(reportType: IBGBugReportingReportTypeWrapper, reportOption: IBGBugReportingOptionWrapper) {
+        BugReporting.show(with: reportType.ibgBugReportingReportType, options: reportOption.ibgBugReportingOption);
+    }
+}
+
+@objc(IBGLogger)
+public class IBGLogWrapper : NSObject {
+    @objc static public func logInfo(text: String) {
+        IBGLog.logInfo(text)
+    }
+    
+    @objc static public func logError(text: String) {
+        IBGLog.logError(text)
     }
 }

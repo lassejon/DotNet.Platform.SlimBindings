@@ -12,6 +12,23 @@ namespace Instabug.MaciOS.Binding
     }
 
     [Native]
+    public enum IBGBugReportingOption : long
+    {
+        EmailFieldHidden = 0,
+        EmailFieldOptional = 1,
+        CommentFieldRequired = 2,
+        DisablePostSendingDialog = 3
+    }
+
+    [Native]
+    public enum IBGBugReportingReportType : long
+    {
+        Bug = 0,
+        Feedback = 1,
+        Question = 2
+    }
+
+    [Native]
     public enum IBGColorTheme : long
     {
         Light = 0,
@@ -83,5 +100,13 @@ namespace Instabug.MaciOS.Binding
         Enable = 0,
         EnabledWithNoScreenshots = 1,
         Disable = 2
+    }
+
+    [Native]
+    public enum IBGWelcomeMessageMode : long
+    {
+        Beta = 0,
+        Live = 1,
+        Disabled = 2
     }
 }

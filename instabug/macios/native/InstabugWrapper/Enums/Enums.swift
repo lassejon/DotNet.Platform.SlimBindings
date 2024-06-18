@@ -100,6 +100,60 @@ import Instabug
     }
 }
 
+@objc(IBGWelcomeMessageMode) public enum IBGWelcomeMessageModeWrapper: Int {
+    case beta
+    case live
+    case disabled
+    
+    var ibgWelcomeMessageMode: IBGWelcomeMessageMode {
+        switch self {
+        case .beta:
+            return .beta
+        case .live:
+            return .live
+        case .disabled:
+            return .disabled
+        }
+    }
+}
+
+@objc(IBGBugReportingReportType) public enum IBGBugReportingReportTypeWrapper: Int {
+    case bug
+    case feedback
+    case question
+    
+    var ibgBugReportingReportType: IBGBugReportingReportType {
+        switch self {
+        case .bug:
+            return .bug
+        case .feedback:
+            return .feedback
+        case .question:
+            return .question
+        }
+    }
+}
+
+@objc(IBGBugReportingOption) public enum IBGBugReportingOptionWrapper: Int {
+    case emailFieldHidden
+    case emailFieldOptional
+    case commentFieldRequired
+    case disablePostSendingDialog
+    
+    var ibgBugReportingOption: IBGBugReportingOption {
+        switch self {
+        case .emailFieldHidden:
+            return .emailFieldHidden
+        case .emailFieldOptional:
+            return .emailFieldOptional
+        case .commentFieldRequired:
+            return .commentFieldRequired
+        case .disablePostSendingDialog:
+            return .disablePostSendingDialog
+        }
+    }
+}
+
 @objc(IBGAttachmentType) public enum IBGAttachmentTypeWrapper: Int {
     case screenShot
     case extraScreenShot

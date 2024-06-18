@@ -19,6 +19,11 @@ namespace Instabug.MaciOS.Binding
 		[Export("didDismissHandler", ArgumentSemantic.Copy)]
 		Action<IBGDismissType, IBGReportType> DidDismissHandler { get; set; }
 
+		// @property (nonatomic, class) enum IBGInvocationEvent invocationEvents;
+		[Static]
+		[Export("invocationEvents", ArgumentSemantic.Assign)]
+		IBGInvocationEvent InvocationEvents { get; set; }
+
 		// @property (nonatomic, class) CGRectEdge floatingButtonEdge;
 		[Static]
 		[Export("floatingButtonEdge", ArgumentSemantic.Assign)]
@@ -43,6 +48,11 @@ namespace Instabug.MaciOS.Binding
 		[Static]
 		[Export("enabledAttachmentTypes", ArgumentSemantic.Assign)]
 		IBGAttachmentType EnabledAttachmentTypes { get; set; }
+
+		// +(void)showWithReportTypeWithReportType:(enum IBGBugReportingReportType)reportType reportOption:(enum IBGBugReportingOption)reportOption;
+		[Static]
+		[Export("showWithReportTypeWithReportType:reportOption:")]
+		void ShowWithReportTypeWithReportType(IBGBugReportingReportType reportType, IBGBugReportingOption reportOption);
 	}
 
 	// @interface CrashReporting : NSObject
@@ -55,6 +65,21 @@ namespace Instabug.MaciOS.Binding
 		bool Enabled { get; set; }
 	}
 
+	// @interface IBGLogger : NSObject
+	[BaseType(typeof(NSObject))]
+	interface IBGLogger
+	{
+		// +(void)logInfoWithText:(NSString * _Nonnull)text;
+		[Static]
+		[Export("logInfoWithText:")]
+		void LogInfoWithText(string text);
+
+		// +(void)logErrorWithText:(NSString * _Nonnull)text;
+		[Static]
+		[Export("logErrorWithText:")]
+		void LogErrorWithText(string text);
+	}
+
 	// @interface InstabugSdk : NSObject
 	[BaseType(typeof(NSObject))]
 	interface InstabugSdk
@@ -63,6 +88,11 @@ namespace Instabug.MaciOS.Binding
 		[Static]
 		[Export("trackUserSteps")]
 		bool TrackUserSteps { get; set; }
+
+		// @property (nonatomic, class) enum IBGWelcomeMessageMode welcomeMessageMode;
+		[Static]
+		[Export("welcomeMessageMode", ArgumentSemantic.Assign)]
+		IBGWelcomeMessageMode WelcomeMessageMode { get; set; }
 
 		// @property (nonatomic, class) enum IBGUserStepsMode reproStepsMode;
 		[Static]
