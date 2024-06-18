@@ -32,8 +32,11 @@ android {
     }
 }
 
-dependencies {
+configurations {
+    create("copyDependencies")
+}
 
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -41,4 +44,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.instabug.library:instabug:13.0.1")
+    "copyDependencies"("com.instabug.library:instabug:13.0.1")
+}
+
+project.afterEvaluate {
+    tasks.register<Copy>("copyDeps") {
+        from(configurations["copyDependencies"])
+        into("${projectDir}/build/outputs/deps")
+    }
+    tasks.named("preBuild") { finalizedBy("copyDeps") }
 }

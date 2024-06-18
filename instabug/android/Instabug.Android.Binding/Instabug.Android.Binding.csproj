@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-android</TargetFramework>
-    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Facebook</RootNamespace>
+    <RootNamespace>Instabug.Android.Binding</RootNamespace>
     <AndroidGenerateResourceDesigner>false</AndroidGenerateResourceDesigner>
   </PropertyGroup>
 
@@ -14,7 +14,7 @@
 
   <!-- Metadata applicable to @(AndroidLibrary) will be used if set -->
   <ItemGroup>
-    <GradleProjectReference Include="../native" >
+    <GradleProjectReference Include="../native">
       <ModuleName>instabugwrapper</ModuleName>
       <Bind>true</Bind>
       <Pack>true</Pack>

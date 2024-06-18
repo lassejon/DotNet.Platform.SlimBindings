@@ -2,177 +2,151 @@ package com.example.instabugwrapper
 
 import android.app.Application
 import com.instabug.bug.BugReporting
-import com.instabug.library.IBGFeature
 import com.instabug.library.Instabug
 import com.instabug.library.InstabugColorTheme
 import com.instabug.library.OnSdkDismissCallback
 import com.instabug.library.invocation.InstabugInvocationEvent
 import com.instabug.library.invocation.util.InstabugFloatingButtonEdge
-import com.instabug.library.logging.InstabugLog
 import com.instabug.library.ui.onboarding.WelcomeMessage
 import java.util.Locale
 
 class InstabugSdk {
     companion object {
+        @JvmStatic
         var builder: Builder? = null
 
+        @JvmStatic
         fun show() {
             Instabug.show();
         }
 
-        fun setTrackingUserStepsState(state: FeatureWrapper.State) {
+        @JvmStatic
+        fun setTrackingUserStepsState(state: Feature.State) {
             Instabug.setTrackingUserStepsState(state.toNative())
         }
 
-        fun setViewHierarchyState(state: FeatureWrapper.State) {
+        @JvmStatic
+        fun setViewHierarchyState(state: Feature.State) {
             builder?.builder?.setViewHierarchyState(state.toNative())
         }
 
-        fun setReproStepsState(state: FeatureWrapper.State) {
+        @JvmStatic
+        fun setReproStepsState(state: Feature.State) {
             Instabug.setTrackingUserStepsState(state.toNative())
         }
 
-        fun setColorTheme(colorTheme: InstabugColorThemeWrapper) {
+        @JvmStatic
+        fun setColorTheme(colorTheme: com.example.instabugwrapper.InstabugColorTheme) {
             Instabug.setColorTheme(colorTheme.toNative())
         }
 
-        fun setWelcomeMessageState(welcomeMessage: WelcomeMessageWrapper.State) {
+        @JvmStatic
+        fun setWelcomeMessageState(welcomeMessage: com.example.instabugwrapper.WelcomeMessage.State) {
             Instabug.setWelcomeMessageState(welcomeMessage.toNative())
         }
 
-        fun setLocale(locale: IBGLocale) {
-            Instabug.setLocale(locale.toNative());
+        @JvmStatic
+        fun setLocale(locale: Locale) {
+            Instabug.setLocale(locale);
+        }
+    }
+
+     class Builder(context: Application, instabugToken: String) {
+        internal var builder: Instabug.Builder? = null
+
+        init {
+            builder = Instabug.Builder(context, instabugToken)
+            InstabugSdk.builder = this
         }
 
-        class Builder(context: Application, instabugToken: String) {
-            internal var builder: Instabug.Builder? = null
+        fun setInvocationEvents(vararg instabugInvocationEvents: com.example.instabugwrapper.InstabugInvocationEvent): Builder {
+            val nativeEvents = instabugInvocationEvents.map { it.toNative() }.toTypedArray()
+            builder = builder?.setInvocationEvents(*nativeEvents)
 
-            init {
-                builder = Instabug.Builder(context, instabugToken)
-                InstabugSdk.builder = this
-            }
+            return this
+        }
 
-            fun setInvocationEvents(event: InstabugInvocationEvent): Builder {
-                builder = builder?.setInvocationEvents(event)
+        fun build() {
+            builder?.build()
+        }
+    }
+}
 
-                return this
-            }
+class InstabugLog {
+    companion object {
+        @JvmStatic
+        fun i(text: String) {
+            com.instabug.library.logging.InstabugLog.i(text)
+        }
 
-            fun build() {
-                builder?.build()
-            }
+        @JvmStatic
+        fun e(text: String) {
+            com.instabug.library.logging.InstabugLog.e(text);
         }
     }
 }
 
 class BugReporting {
     companion object {
-        fun show(reportType: ReportTypeWrapper) {
+        @JvmStatic
+        fun showWrapper(reportType: ReportType) {
             BugReporting.show(reportType.toNative().ordinal)
         }
 
-        fun setFloatingButtonEdge(instabugFloatingButtonEdge: InstabugFloatingButtonEdgeWrapper) {
+        @JvmStatic
+        fun setFloatingButtonEdge(instabugFloatingButtonEdge: com.example.instabugwrapper.InstabugFloatingButtonEdge) {
             BugReporting.setFloatingButtonEdge(instabugFloatingButtonEdge.toNative())
         }
 
+        @JvmStatic
         fun setFloatingButtonOffset(offset: Int) {
             BugReporting.setFloatingButtonOffset(offset)
         }
 
+        @JvmStatic
         fun setInvocationEvents(vararg instabugInvocationEvents: com.example.instabugwrapper.InstabugInvocationEvent) {
             val nativeEvents = instabugInvocationEvents.map { it.toNative() }.toTypedArray()
             BugReporting.setInvocationEvents(*nativeEvents)
         }
 
-        fun setShakingTreshold(treshold: Int) {
-            BugReporting.setShakingThreshold(treshold)
+        @JvmStatic
+        fun setShakingThreshold(threshold: Int) {
+            BugReporting.setShakingThreshold(threshold)
         }
 
+        @JvmStatic
         fun setAttachmentTypesEnabled(initialScreenshot: Boolean, extraScreenshot: Boolean, imageFromGallery: Boolean, screenRecording: Boolean) {
             BugReporting.setAttachmentTypesEnabled(initialScreenshot, extraScreenshot, imageFromGallery, screenRecording)
         }
 
+        @JvmStatic
         fun setAutoScreenRecordingEnabled(autoScreenRecordingEnabled: Boolean) {
             BugReporting.setAutoScreenRecordingEnabled(autoScreenRecordingEnabled)
         }
 
-        fun setOnDismissCallback(onDismissCallback: (issueState: DismissType, reportType: com.example.instabugwrapper.ReportType) -> Unit) {
+        @JvmStatic
+        fun setOnDismissCallback(onDismissCallback: IOnDismissCallBack) {
             BugReporting.setOnDismissCallback { issueState, reportType ->
-                onDismissCallback(DismissType.fromNative(issueState), com.example.instabugwrapper.ReportType.fromNative(reportType))
+                onDismissCallback.onDismiss(DismissType.fromNative(issueState), ReportType.fromNative(reportType))
             }
         }
 
-        fun setOnInvokeCallback(onInvokeCallback: () -> Unit) {
-            BugReporting.setOnInvokeCallback { onInvokeCallback() }
-        }
-    }
-
-    class InstabugLog {
-        companion object {
-            fun i(text: String) {
-                com.instabug.library.logging.InstabugLog.i(text)
-            }
-
-            fun e(text: String) {
-                com.instabug.library.logging.InstabugLog.e(text);
-            }
+        @JvmStatic
+        fun setOnInvokeCallback(onInvokeCallback: IOnInvokeCallback) {
+            BugReporting.setOnInvokeCallback { onInvokeCallback.onInvoke() }
         }
     }
 }
 
-enum class IBGLocale {
-    ENGLISH,
-    FRENCH,
-    GERMAN,
-    ITALIAN,
-    JAPANESE,
-    KOREAN,
-    CHINESE,
-    SIMPLIFIED_CHINESE,
-    TRADITIONAL_CHINESE,
-    FRANCE,
-    GERMANY,
-    ITALY,
-    JAPAN,
-    KOREA,
-    CHINA,
-    PRC,
-    TAIWAN,
-    UK,
-    US,
-    CANADA,
-    CANADA_FRENCH,
-    ROOT;
-
-    fun toNative(): Locale {
-        return when (this) {
-            ENGLISH -> Locale.ENGLISH
-            FRENCH -> Locale.FRENCH
-            GERMAN -> Locale.GERMAN
-            ITALIAN -> Locale.ITALIAN
-            JAPANESE -> Locale.JAPANESE
-            KOREAN -> Locale.KOREAN
-            CHINESE -> Locale.CHINESE
-            SIMPLIFIED_CHINESE -> Locale.SIMPLIFIED_CHINESE
-            TRADITIONAL_CHINESE -> Locale.TRADITIONAL_CHINESE
-            FRANCE -> Locale.FRANCE
-            GERMANY -> Locale.GERMANY
-            ITALY -> Locale.ITALY
-            JAPAN -> Locale.JAPAN
-            KOREA -> Locale.KOREA
-            CHINA -> Locale.CHINA
-            PRC -> Locale.PRC
-            TAIWAN -> Locale.TAIWAN
-            UK -> Locale.UK
-            US -> Locale.US
-            CANADA -> Locale.CANADA
-            CANADA_FRENCH -> Locale.CANADA_FRENCH
-            ROOT -> Locale.ROOT
-        }
-    }
+interface IOnDismissCallBack {
+    fun onDismiss(issueState: DismissType, reportType: ReportType)
 }
 
-enum class DismissTypeWrapper {
+interface IOnInvokeCallback {
+    fun onInvoke()
+}
+
+enum class DismissType {
     SUBMIT,
     CANCEL,
     ADD_ATTACHMENT;
@@ -186,6 +160,7 @@ enum class DismissTypeWrapper {
     }
 
     companion object {
+        @JvmStatic
         internal fun fromNative(reportType: OnSdkDismissCallback.DismissType): DismissType {
             return when (reportType) {
                 OnSdkDismissCallback.DismissType.SUBMIT -> com.example.instabugwrapper.DismissType.SUBMIT
@@ -212,7 +187,8 @@ enum class ReportType {
     }
 
     companion object {
-        internal fun fromNative(reportType: OnSdkDismissCallback.ReportType): com.example.instabugwrapper.ReportType {
+        @JvmStatic
+        internal fun fromNative(reportType: OnSdkDismissCallback.ReportType): ReportType {
             return when (reportType) {
                 OnSdkDismissCallback.ReportType.BUG -> BUG
                 OnSdkDismissCallback.ReportType.FEEDBACK -> FEEDBACK
@@ -285,7 +261,7 @@ enum class InstabugColorTheme {
     InstabugColorThemeLight,
     InstabugColorThemeDark;
 
-    internal fun toNative(): InstabugColorTheme  {
+    internal fun toNative(): InstabugColorTheme {
         return when (this) {
             InstabugColorThemeLight -> InstabugColorTheme.InstabugColorThemeLight
             InstabugColorThemeDark -> InstabugColorTheme.InstabugColorThemeDark
