@@ -5,6 +5,8 @@
     <ImplicitUsings>true</ImplicitUsings>
     <IsBindingProject>true</IsBindingProject>
     <NoBindingEmbedding>true</NoBindingEmbedding>
+
+    <!-- <BuildXcodeProjectsDependsOnTargets>$(BuildXcodeProjectsDependsOnTargets);NativeDependencies</BuildXcodeProjectsDependsOnTargets> -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,4 +26,16 @@
       <SmartLink>true</SmartLink>
     </XcodeProjectReference>
   </ItemGroup>
+
+  <!-- <Target Name="NativeDependencies">
+    <PropertyGroup>
+      <InstabugiOSSdkUrl>https://s3.amazonaws.com/instabug-pro/sdk_releases/Instabug-XCFramework.zip</InstabugiOSSdkUrl>
+    </PropertyGroup>
+
+    <DownloadFile SourceUrl="$(InstabugiOSSdkUrl)" DestinationFolder="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps))">
+      <Output TaskParameter="DownloadedFile" ItemName="InstabugiOSSdkArchives" />
+    </DownloadFile>
+
+    <Exec Command="unzip -q -o -d $([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps)) @(InstabugiOSSdkArchives)" />
+  </Target> -->
 </Project>
