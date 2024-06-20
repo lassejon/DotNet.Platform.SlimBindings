@@ -6,7 +6,7 @@
     <IsBindingProject>true</IsBindingProject>
     <NoBindingEmbedding>true</NoBindingEmbedding>
 
-    <!-- <BuildXcodeProjectsDependsOnTargets>$(BuildXcodeProjectsDependsOnTargets);NativeDependencies</BuildXcodeProjectsDependsOnTargets> -->
+    <BuildXcodeProjectsDependsOnTargets>$(BuildXcodeProjectsDependsOnTargets);NativeDependencies</BuildXcodeProjectsDependsOnTargets>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +26,21 @@
       <SmartLink>true</SmartLink>
     </XcodeProjectReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <FilesToCopy Include="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../Instabug-XCFramework.zip))"/>
+  </ItemGroup>
+
+  <Target Name="NativeDependencies">
+     <Message Text="Copying Files @(FilesToCopy)"/>
+     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps))">
+       <Output 
+          TaskParameter="DestinationFiles"
+          ItemName="FilesWritten"/>
+     </Copy>
+     <Message Text="@(FilesWritten)"/>
+    <Exec Command="unzip -q -o -d $([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps)) @(FilesWritten)" />
+  </Target>
 
   <!-- <Target Name="NativeDependencies">
     <PropertyGroup>

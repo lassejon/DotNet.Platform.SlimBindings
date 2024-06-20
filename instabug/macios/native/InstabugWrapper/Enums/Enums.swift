@@ -8,13 +8,15 @@
 import Foundation
 import Instabug
 
+// Selection of enums has bit value for conversion from rawvalue. Others are in correct order.
+// See native type for values and orders.
 @objc(IBGInvocationEvent) public enum IBGInvocationEventWrapper: Int {
-    case shake
-    case screenshot
-    case twoFingersSwipeLeft
-    case rightEdgePan
-    case floatingButton
-    case none
+    case shake = 1
+    case screenshot = 2
+    case twoFingersSwipeLeft = 4
+    case rightEdgePan = 8
+    case floatingButton = 16
+    case none = 32
 
     // Step 2: Add a Computed Property to Map to IBGInvocationEvent
     var ibgInvocationEvent: IBGInvocationEvent {
@@ -69,22 +71,25 @@ import Instabug
 @objc(IBGDismissType) public enum IBGDismissTypeWrapper: Int {
     case submit
     case cancel
+    case addAttachment
     
     var ibgDismissType: IBGDismissType {
         switch self {
         case .submit:
-            return .submit
+            return .addAttachment
         case .cancel:
             return .cancel
+        case .addAttachment :
+            return .addAttachment
         }
     }
 }
 
 @objc(IBGReportType) public enum IBGReportTypeWrapper: Int {
-    case bug
-    case feedback
-    case question
-    case other
+    case bug = 1
+    case feedback = 2
+    case question = 4
+    case other = 8
     
     var ibgReportType: IBGReportType {
         switch self {
@@ -101,8 +106,8 @@ import Instabug
 }
 
 @objc(IBGWelcomeMessageMode) public enum IBGWelcomeMessageModeWrapper: Int {
-    case beta
     case live
+    case beta
     case disabled
     
     var ibgWelcomeMessageMode: IBGWelcomeMessageMode {
@@ -118,9 +123,9 @@ import Instabug
 }
 
 @objc(IBGBugReportingReportType) public enum IBGBugReportingReportTypeWrapper: Int {
-    case bug
-    case feedback
-    case question
+    case bug = 1
+    case feedback = 2
+    case question = 4
     
     var ibgBugReportingReportType: IBGBugReportingReportType {
         switch self {
@@ -135,10 +140,11 @@ import Instabug
 }
 
 @objc(IBGBugReportingOption) public enum IBGBugReportingOptionWrapper: Int {
-    case emailFieldHidden
-    case emailFieldOptional
-    case commentFieldRequired
-    case disablePostSendingDialog
+    case emailFieldHidden = 1
+    case emailFieldOptional = 2
+    case commentFieldRequired = 4
+    case disablePostSendingDialog = 8
+    case none = 16
     
     var ibgBugReportingOption: IBGBugReportingOption {
         switch self {
@@ -150,15 +156,17 @@ import Instabug
             return .commentFieldRequired
         case .disablePostSendingDialog:
             return .disablePostSendingDialog
+        case .none:
+            return .none
         }
     }
 }
 
 @objc(IBGAttachmentType) public enum IBGAttachmentTypeWrapper: Int {
-    case screenShot
-    case extraScreenShot
-    case galleryImage
-    case screenRecording
+    case screenShot = 2
+    case extraScreenShot = 4
+    case galleryImage = 16
+    case screenRecording = 64
     
     var ibgAttachmentType: IBGAttachmentType {
         switch self {

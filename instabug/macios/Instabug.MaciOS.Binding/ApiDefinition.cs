@@ -99,10 +99,10 @@ namespace Instabug.MaciOS.Binding
 		[Export("reproStepsMode", ArgumentSemantic.Assign)]
 		IBGUserStepsMode ReproStepsMode { get; set; }
 
-		// @property (nonatomic, class) BOOL shouldCaptureViewHierarch;
+		// @property (nonatomic, class) BOOL shouldCaptureViewHierarchy;
 		[Static]
-		[Export("shouldCaptureViewHierarch")]
-		bool ShouldCaptureViewHierarch { get; set; }
+		[Export("shouldCaptureViewHierarchy")]
+		bool ShouldCaptureViewHierarchy { get; set; }
 
 		// +(void)setColorThemeWithIbgColorTheme:(enum IBGColorTheme)ibgColorTheme;
 		[Static]

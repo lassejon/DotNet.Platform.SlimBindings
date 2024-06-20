@@ -5,27 +5,28 @@ namespace Instabug.MaciOS.Binding
     [Native]
     public enum IBGAttachmentType : long
     {
-        ScreenShot = 0,
-        ExtraScreenShot = 1,
-        GalleryImage = 2,
-        ScreenRecording = 3
+        ScreenShot = 2,
+        ExtraScreenShot = 4,
+        GalleryImage = 16,
+        ScreenRecording = 64
     }
 
     [Native]
     public enum IBGBugReportingOption : long
     {
-        EmailFieldHidden = 0,
-        EmailFieldOptional = 1,
-        CommentFieldRequired = 2,
-        DisablePostSendingDialog = 3
+        EmailFieldHidden = 1,
+        EmailFieldOptional = 2,
+        CommentFieldRequired = 4,
+        DisablePostSendingDialog = 8,
+        None = 16
     }
 
     [Native]
     public enum IBGBugReportingReportType : long
     {
-        Bug = 0,
-        Feedback = 1,
-        Question = 2
+        Bug = 1,
+        Feedback = 2,
+        Question = 4
     }
 
     [Native]
@@ -39,18 +40,19 @@ namespace Instabug.MaciOS.Binding
     public enum IBGDismissType : long
     {
         Submit = 0,
-        Cancel = 1
+        Cancel = 1,
+        AddAttachment = 2
     }
 
     [Native]
     public enum IBGInvocationEvent : long
     {
-        Shake = 0,
-        Screenshot = 1,
-        TwoFingersSwipeLeft = 2,
-        RightEdgePan = 3,
-        FloatingButton = 4,
-        None = 5
+        Shake = 1,
+        Screenshot = 2,
+        TwoFingersSwipeLeft = 4,
+        RightEdgePan = 8,
+        FloatingButton = 16,
+        None = 32
     }
 
     [Native]
@@ -88,10 +90,10 @@ namespace Instabug.MaciOS.Binding
     [Native]
     public enum IBGReportType : long
     {
-        Bug = 0,
-        Feedback = 1,
-        Question = 2,
-        Other = 3
+        Bug = 1,
+        Feedback = 2,
+        Question = 4,
+        Other = 8
     }
 
     [Native]
@@ -105,8 +107,8 @@ namespace Instabug.MaciOS.Binding
     [Native]
     public enum IBGWelcomeMessageMode : long
     {
-        Beta = 0,
-        Live = 1,
+        Live = 0,
+        Beta = 1,
         Disabled = 2
     }
 }

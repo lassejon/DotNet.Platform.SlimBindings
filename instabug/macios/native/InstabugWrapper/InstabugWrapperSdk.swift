@@ -28,9 +28,9 @@ public class InstabugWrapperSdk : NSObject {
         }
     }
     
-    @objc static public var shouldCaptureViewHierarch: Bool = false {
+    @objc static public var shouldCaptureViewHierarchy: Bool = false {
         didSet {
-            BugReporting.shouldCaptureViewHierarchy = shouldCaptureViewHierarch;
+            BugReporting.shouldCaptureViewHierarchy = shouldCaptureViewHierarchy;
         }
     }
     
@@ -72,12 +72,21 @@ public class IBGBugReportingWrapper : NSObject {
     @objc public static var didDismissHandler: ((IBGDismissTypeWrapper, IBGReportTypeWrapper) -> Void) = {_,_ in } {
         didSet {
             BugReporting.didDismissHandler = { dismissType, reportType in
-                
                 // Convert IBGDismissType and IBGReportType to their corresponding wrappers
-                let dismissTypeWrapper = IBGDismissTypeWrapper(rawValue: dismissType.rawValue)!
-                let reportTypeWrapper = IBGReportTypeWrapper(rawValue: reportType.rawValue)!
+                NSLog("BugReporting.didDismissHandler called with dismissType: \(dismissType), reportType: \(reportType)")
+                            
+                // Safely unwrap raw values and create wrapper objects
+                guard let dismissTypeWrapper = IBGDismissTypeWrapper(rawValue: dismissType.rawValue) else {
+                    NSLog("Error: Failed to create IBGDismissTypeWrapper from \(dismissType.rawValue)")
+                    NSLog("Dismiss type: \(dismissType)")
+                    return
+                }
+                guard let reportTypeWrapper = IBGReportTypeWrapper(rawValue: reportType.rawValue) else {
+                    NSLog("Error: Failed to create IBGReportTypeWrapper from \(reportType.rawValue)")
+                    NSLog("Report type: \(reportType)")
+                    return
+                }
                 
-                // Call the didDismissHandler with the wrapper types
                 self.didDismissHandler(dismissTypeWrapper, reportTypeWrapper)
             }
         }
