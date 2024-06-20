@@ -49,10 +49,10 @@ namespace Instabug.MaciOS.Binding
 		[Export("enabledAttachmentTypes", ArgumentSemantic.Assign)]
 		IBGAttachmentType EnabledAttachmentTypes { get; set; }
 
-		// +(void)showWithReportTypeWithReportType:(enum IBGBugReportingReportType)reportType reportOption:(enum IBGBugReportingOption)reportOption;
+		// +(void)showWithReportType:(enum IBGBugReportingReportType)reportType reportType:(enum IBGBugReportingOption)reportOption;
 		[Static]
-		[Export("showWithReportTypeWithReportType:reportOption:")]
-		void ShowWithReportTypeWithReportType(IBGBugReportingReportType reportType, IBGBugReportingOption reportOption);
+		[Export("showWithReportType:reportType:")]
+		void ShowWithReportType(IBGBugReportingReportType reportType, IBGBugReportingOption reportOption);
 	}
 
 	// @interface CrashReporting : NSObject
@@ -94,30 +94,30 @@ namespace Instabug.MaciOS.Binding
 		[Export("welcomeMessageMode", ArgumentSemantic.Assign)]
 		IBGWelcomeMessageMode WelcomeMessageMode { get; set; }
 
-		// @property (nonatomic, class) enum IBGUserStepsMode reproStepsMode;
-		[Static]
-		[Export("reproStepsMode", ArgumentSemantic.Assign)]
-		IBGUserStepsMode ReproStepsMode { get; set; }
-
 		// @property (nonatomic, class) BOOL shouldCaptureViewHierarchy;
 		[Static]
 		[Export("shouldCaptureViewHierarchy")]
 		bool ShouldCaptureViewHierarchy { get; set; }
 
-		// +(void)setColorThemeWithIbgColorTheme:(enum IBGColorTheme)ibgColorTheme;
+		// +(void)setReproStepsFor:(enum IBGIssueType)issueType issueType:(enum IBGUserStepsMode)reproStepsMode;
 		[Static]
-		[Export("setColorThemeWithIbgColorTheme:")]
-		void SetColorThemeWithIbgColorTheme(IBGColorTheme ibgColorTheme);
+		[Export("setReproStepsFor:issueType:")]
+		void SetReproStepsFor(IBGIssueType issueType, IBGUserStepsMode reproStepsMode);
 
-		// +(void)startWithToken:(NSString * _Nonnull)token invocationEvents:(enum IBGInvocationEvent)invocationEvents;
+		// +(void)setColorTheme:(enum IBGColorTheme)ibgColorTheme;
 		[Static]
-		[Export("startWithToken:invocationEvents:")]
-		void StartWithToken(string token, IBGInvocationEvent invocationEvents);
+		[Export("setColorTheme:")]
+		void SetColorTheme(IBGColorTheme ibgColorTheme);
 
-		// +(void)setLocaleWithLocale:(enum IBGLocale)locale;
+		// +(void)start:(NSString * _Nonnull)token token:(enum IBGInvocationEvent)invocationEvents;
 		[Static]
-		[Export("setLocaleWithLocale:")]
-		void SetLocaleWithLocale(IBGLocale locale);
+		[Export("start:token:")]
+		void Start(string token, IBGInvocationEvent invocationEvents);
+
+		// +(void)setLocale:(enum IBGLocale)locale;
+		[Static]
+		[Export("setLocale:")]
+		void SetLocale(IBGLocale locale);
 
 		// +(void)show;
 		[Static]

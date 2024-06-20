@@ -56,6 +56,15 @@ namespace Instabug.MaciOS.Binding
     }
 
     [Native]
+    public enum IBGIssueType : long
+    {
+        Bug = 0,
+        Crash = 1,
+        SessionReplay = 2,
+        All = 3
+    }
+
+    [Native]
     public enum IBGLocale : long
     {
         Arabic = 0,

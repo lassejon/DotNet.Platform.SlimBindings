@@ -22,27 +22,28 @@ public class InstabugWrapperSdk : NSObject {
         }
     }
     
-    @objc static public var reproStepsMode: IBGUserStepsModeWrapper = IBGUserStepsModeWrapper.disable {
-        didSet {
-            Instabug.setReproStepsFor(IBGIssueType.all, with: reproStepsMode.ibgUserStepsMode);
-        }
-    }
-    
     @objc static public var shouldCaptureViewHierarchy: Bool = false {
         didSet {
             BugReporting.shouldCaptureViewHierarchy = shouldCaptureViewHierarchy;
         }
     }
     
-    @objc static public func setColorTheme(ibgColorTheme: IBGColorThemeWrapper) {
+    @objc(setReproStepsFor:issueType:)
+    static public func setReproStepsFor( issueType: IBGIssueTypeWrapper, reproStepsMode: IBGUserStepsModeWrapper) {
+        Instabug.setReproStepsFor(issueType.ibgIssueType, with: reproStepsMode.ibgUserStepsMode)
+    }
+    
+    @objc(setColorTheme:)
+    static public func setColorTheme(ibgColorTheme: IBGColorThemeWrapper) {
         Instabug.setColorTheme(ibgColorTheme.ibgColorTheme);
     }
     
-    @objc static public func start(token: String, invocationEvents: IBGInvocationEventWrapper) -> Void {
+    @objc(start:token:)
+    static public func start(token: String, invocationEvents: IBGInvocationEventWrapper) -> Void {
         Instabug.start(withToken: token, invocationEvents: invocationEvents.ibgInvocationEvent);
     }
     
-    @objc
+    @objc(setLocale:)
     static public func setLocale(locale: IBGLocaleWrapper) -> Void {
         Instabug.setLocale(locale.ibgLocale);
     }
@@ -72,18 +73,13 @@ public class IBGBugReportingWrapper : NSObject {
     @objc public static var didDismissHandler: ((IBGDismissTypeWrapper, IBGReportTypeWrapper) -> Void) = {_,_ in } {
         didSet {
             BugReporting.didDismissHandler = { dismissType, reportType in
-                // Convert IBGDismissType and IBGReportType to their corresponding wrappers
-                NSLog("BugReporting.didDismissHandler called with dismissType: \(dismissType), reportType: \(reportType)")
-                            
                 // Safely unwrap raw values and create wrapper objects
                 guard let dismissTypeWrapper = IBGDismissTypeWrapper(rawValue: dismissType.rawValue) else {
                     NSLog("Error: Failed to create IBGDismissTypeWrapper from \(dismissType.rawValue)")
-                    NSLog("Dismiss type: \(dismissType)")
                     return
                 }
                 guard let reportTypeWrapper = IBGReportTypeWrapper(rawValue: reportType.rawValue) else {
                     NSLog("Error: Failed to create IBGReportTypeWrapper from \(reportType.rawValue)")
-                    NSLog("Report type: \(reportType)")
                     return
                 }
                 
@@ -128,7 +124,8 @@ public class IBGBugReportingWrapper : NSObject {
         }
     }
     
-    @objc static public func showWithReportType(reportType: IBGBugReportingReportTypeWrapper, reportOption: IBGBugReportingOptionWrapper) {
+    @objc(showWithReportType:reportType:)
+    static public func showWithReportType(reportType: IBGBugReportingReportTypeWrapper, reportOption: IBGBugReportingOptionWrapper) {
         BugReporting.show(with: reportType.ibgBugReportingReportType, options: reportOption.ibgBugReportingOption);
     }
 }

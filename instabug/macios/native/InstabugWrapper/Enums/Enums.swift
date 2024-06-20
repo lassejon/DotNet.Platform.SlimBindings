@@ -68,6 +68,26 @@ import Instabug
     }
 }
 
+@objc(IBGIssueType) public enum IBGIssueTypeWrapper: Int {
+    case bug
+    case crash
+    case sessionReplay
+    case all
+    
+    var ibgIssueType: IBGIssueType {
+        switch self {
+            case .bug:
+                return .bug
+            case .crash:
+                return .crash
+            case .sessionReplay:
+                return .sessionReplay
+            case .all:
+                return .all
+        }
+    }
+}
+
 @objc(IBGDismissType) public enum IBGDismissTypeWrapper: Int {
     case submit
     case cancel
