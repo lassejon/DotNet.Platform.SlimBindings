@@ -28,9 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <FilesToCopy Include="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../Instabug-XCFramework.zip))"/>
+    <FilesToCopy Include="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/Instabug-XCFramework.zip))"/>
   </ItemGroup>
 
+  <!-- This target will unzip the Instabug iOS SDK in the deps folder
+       The target can be removed when the SDK is available from the download link in the outcommented target below -->
   <Target Name="NativeDependencies">
      <Message Text="Copying Files @(FilesToCopy)"/>
      <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps))">
@@ -42,6 +44,7 @@
     <Exec Command="unzip -q -o -d $([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps)) @(FilesWritten)" />
   </Target>
 
+  <!-- Download link not working properly, hence the outcomment of target -->
   <!-- <Target Name="NativeDependencies">
     <PropertyGroup>
       <InstabugiOSSdkUrl>https://s3.amazonaws.com/instabug-pro/sdk_releases/Instabug-XCFramework.zip</InstabugiOSSdkUrl>
