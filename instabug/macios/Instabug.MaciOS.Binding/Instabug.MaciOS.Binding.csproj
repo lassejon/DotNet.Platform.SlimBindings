@@ -44,6 +44,13 @@
     <Exec Command="unzip -q -o -d $([System.IO.Path]::GetFullPath($(MSBuildProjectDirectory)/../native/build/deps)) @(FilesWritten)" />
   </Target>
 
+  <ItemGroup>
+    <NativeReference Include="../native/build/deps/Instabug.xcframework">
+        <Kind>Framework</Kind>
+        <SmartLink>true</SmartLink>
+    </NativeReference>
+  </ItemGroup>
+
   <!-- Download link not working properly, hence the outcomment of target -->
   <!-- <Target Name="NativeDependencies">
     <PropertyGroup>
